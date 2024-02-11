@@ -35,12 +35,13 @@ class PlayList {
      *  If the list is full, does nothing and returns false.
      *  Otherwise, appends the track and returns true. */
     public boolean add(Track track) {
-        if (size == maxSize){
+        if(this.size == this.maxSize){
             return false;
-        } else {
-            tracks[size] = track;
-            size++;
-            return true;
+        }
+        else{
+            this.tracks[size]=track;
+            this.size++;
+            return true;    
         }
     }
 
@@ -55,10 +56,10 @@ class PlayList {
     }
 
     /** Removes the last track from this list. If the list is empty, does nothing. */
-     public void removeLast() {
-        if (size != 0){
-            tracks[size-1] = tracks[size];
-            size--;
+    public void removeLast() {
+        if(this.size!=0){
+            tracks[this.size-1]=null;
+            this.size--;
         }
     }
     
