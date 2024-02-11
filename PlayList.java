@@ -169,19 +169,20 @@ class PlayList {
      *  If start is negative or greater than size - 1, returns -1.
      */
     private int minIndex(int start) {
-        if((start < 0) || (start > this.size -1)){
+        if (start < 0 || start > size-1){
             return -1;
-        }
-        int min = Integer.MAX_VALUE;
-        int index = -1;
-        for(int i = start; i < this.size; i++) {
-            if(this.tracks[i] != null && this.tracks[i].getDuration() < min) {
-                min = this.tracks[i].getDuration();
-                index = i;
+        } else {
+            int min = tracks[start].getDuration();
+            int indexMin = start;
+            for (int i = start ; i < size ; i++){
+                if (tracks[i].getDuration() < min){
+                    min = tracks[i].getDuration();
+                    indexMin = i; 
+                }
             }
+            return indexMin; 
         }
-        return index;
-        }
+    }
     
 
 
