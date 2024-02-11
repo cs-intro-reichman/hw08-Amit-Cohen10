@@ -110,15 +110,15 @@ class PlayList {
         }
     }
      
-    /** Removes the track in the given index from this list.
+ /** Removes the track in the given index from this list.
      *  If the list is empty, or the given index is negative or too big for this list, 
      *  does nothing and returns -1. */
     public void remove(int i) {
-        if (size != 0 && i >= 0 && i <= maxSize){
-            for (int j = i ; j < size ; j++){
-                tracks[j] = tracks[j+1];
+        if (size!=0 && i>=0 && i<=this.maxSize){
+            for(int j=i; j<this.size; j++){
+                this.tracks[j]=this.tracks[j+1];
             }
-            size--;
+            this.size--;
         }
     }
 
@@ -126,13 +126,10 @@ class PlayList {
      *  If such a track is not found, or the list is empty, or the given index
      *  is negative or too big for this list, does nothing. */
     public void remove(String title) {
-        if (size != 0){
-            for (int i = 0 ; i < size ; i++){
-                if (title.toLowerCase().equals(tracks[i].getTitle().toLowerCase())){
-                    for (int j = i ; j < size ; j++){
-                        tracks[j] = tracks[j+1];
-                    }
-                    size--;
+        if(size!=0){
+            for(int i=0; i<this.size; i++){
+                if(this.tracks[i].getTitle().toLowerCase().equals(title.toLowerCase())){
+                    remove(i);
                 }
             }
         }
@@ -140,11 +137,11 @@ class PlayList {
 
     /** Removes the first track from this list. If the list is empty, does nothing. */
     public void removeFirst() {
-        if (size != 0){
-            for (int i = 0 ; i < size ; i++){
-                tracks[i] = tracks[i+1];
+        if(this.size!=0){
+            for(int i=0; i<this.size; i++){
+                this.tracks[i]=this.tracks[i+1];
             }
-            size--;
+            this.size--;
         }
     }
     
@@ -152,13 +149,13 @@ class PlayList {
      *  If the total size of both lists is too large, does nothing. */
     //// An elegant and terribly inefficient implementation.
      public void add(PlayList other) {
-        int j = 0;
-        if (other.size + this.size <= this.maxSize){
-            for (int i = this.size ; i < other.size + this.size ; i++){
-                tracks[i] = other.getTrack(j);
+        int j=0;
+        if(this.size + other.size <= this.maxSize){
+            for(int i = this.size; i< this.size+ other.size; i++){
+                this.tracks[i]=other.getTrack(j);
                 j++;
             }
-            size = this.size + other.size;
+            this.size = this.size + other.size;
         }
     }
 
@@ -183,6 +180,8 @@ class PlayList {
             return indexMin; 
         }
     }
+    
+
 
     /** Returns the title of the shortest track in this list. 
      *  If the list is empty, returns null. */
@@ -195,12 +194,13 @@ class PlayList {
      *  rather than returning a new, sorted playlist, the method sorts
      *  the list on which it was called (this list). */
     public void sortedInPlace() {
-        // Uses the selection sort algorithm,  
-        // calling the minIndex method in each iteration.
-        for (int i = 0 ; i < size ; i++){
-            Track minTrack = tracks[minIndex(i)];
-            remove(minTrack.getTitle());
-            add(i, minTrack);
-        } 
+        for (int i = 0; i < this.size; i++) {
+            int index = minIndex(i);
+            if (index != -1 && index != i) {
+                Track temp = this.tracks[i];
+                this.tracks[i] = this.tracks[index];
+                this.tracks[index] = temp;
+            }
+        }
     }
 }
