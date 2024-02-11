@@ -65,18 +65,20 @@ class PlayList {
     
     /** Returns the total duration (in seconds) of all the tracks in this list.*/
     public int totalDuration() {
-        int totalDuration = 0;
-        for (int i = 0 ; i < size ; i++){
-            totalDuration = totalDuration + tracks[i].getDuration();
+        int total = 0;
+        for (int i = 0; i < this.size; i++) {
+            if (this.tracks[i] != null) {
+                total += this.tracks[i].getDuration();
+            }
         }
-        return totalDuration;
+        return total;
     }
 
     /** Returns the index of the track with the given title in this list.
      *  If such a track is not found, returns -1. */
     public int indexOf(String title) {
-        for (int i = 0 ; i < size ; i++){
-            if (title.toLowerCase().equals(tracks[i].getTitle().toLowerCase())){
+        for(int i=0; i<this.size; i++){
+            if(this.tracks[i].getTitle().toLowerCase().equals(title.toLowerCase())){
                 return i;
             }
         }
@@ -90,19 +92,21 @@ class PlayList {
      *  is full, does nothing and returns false. Otherwise, inserts the track and
      *  returns true. */
     public boolean add(int i, Track track) {
-        if (i < 0 || i > maxSize ||size == maxSize){
-            return false;
-        } else {
-            if (size == 0){
-                tracks[size] = track;
-                size++;
-                return true;
-            } else {
-                for (int j = size ; j > i ; j--){
-                    tracks[j] = tracks[j-1];
+        if(this.size==0){
+            this.tracks[0]=track;
+            this.size++;
+            return true;
+        }
+        else{
+            if (this.size==this.maxSize || i<0 || i>this.maxSize) {
+               return false; 
+            }
+            else{
+                for(int j=size; j<1; j--){
+                    this.tracks[j]=this.tracks[j-1];
                 }
-                tracks[i] = track;
-                size++;
+                this.tracks[i]=track;
+                this.size++;
                 return true;
             }
         }
