@@ -169,7 +169,7 @@ class PlayList {
         if((start < 0) || (start > this.size -1)){
             return -1;
         }
-        int min = Integer.MAX_VALUE;
+        int min = 10000000;
         int index = -1;
         for(int i = start; i < this.size; i++) {
             if(this.tracks[i] != null && this.tracks[i].getDuration() < min) {
