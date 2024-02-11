@@ -169,7 +169,7 @@ class PlayList {
         if((start < 0) || (start > this.size -1)){
             return -1;
         }
-        int min = 10000000;
+        int min = Integer.MAX_VALUE;
         int index = -1;
         for(int i = start; i < this.size; i++) {
             if(this.tracks[i] != null && this.tracks[i].getDuration() < min) {
@@ -193,12 +193,13 @@ class PlayList {
      *  rather than returning a new, sorted playlist, the method sorts
      *  the list on which it was called (this list). */
     public void sortedInPlace() {
-        int index = 0;
-        for(int i = 0; i < this.size; i++){
-         index = minIndex(i);
-         Track temp = this.tracks[i];
-         this.tracks[i] = tracks[index];
-         tracks[index] = temp;
+        for (int i = 0; i < this.size; i++) {
+            int index = minIndex(i);
+            if (index != -1 && index != i) {
+                Track temp = this.tracks[i];
+                this.tracks[i] = this.tracks[index];
+                this.tracks[index] = temp;
+            }
         }
-     }
+    }
 }
