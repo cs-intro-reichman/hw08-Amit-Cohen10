@@ -166,20 +166,21 @@ class PlayList {
      *  If start is negative or greater than size - 1, returns -1.
      */
     private int minIndex(int start) {
-        if (start < 0 || start > size-1){
+        if((start < 0) || (start > this.size -1))
             return -1;
-        } else {
-            int min = tracks[start].getDuration();
-            int indexMin = start;
-            for (int i = start ; i < size ; i++){
-                if (tracks[i].getDuration() < min){
-                    min = tracks[i].getDuration();
-                    indexMin = i; 
+        else{
+            int min = this.tracks[start].getDuration();
+            int index = start;
+            for(int i = start + 1; i < this.size; i++){
+                if(min > this.tracks[i].getDuration()){
+                    index = i;
+                    min = this.tracks[i].getDuration();
                 }
             }
-            return indexMin; 
+            return index;
         }
     }
+
 
     /** Returns the title of the shortest track in this list. 
      *  If the list is empty, returns null. */
@@ -192,12 +193,12 @@ class PlayList {
      *  rather than returning a new, sorted playlist, the method sorts
      *  the list on which it was called (this list). */
     public void sortedInPlace() {
-        if(this.size>=0){
-            for(int i=0; i< this.size; i++){
-                Track minTrack = this.tracks[minIndex(i)];
-                remove(minTrack.getTitle());
-                add(i, minTrack);
-            }
+        int index = 0;
+        for(int i = 0; i < this.size; i++){
+         index = minIndex(i);
+         Track temp = this.tracks[i];
+         this.tracks[i] = tracks[index];
+         tracks[index] = temp;
         }
-    }
+     }
 }
