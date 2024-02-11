@@ -65,12 +65,15 @@ class PlayList {
     
     /** Returns the total duration (in seconds) of all the tracks in this list.*/
     public int totalDuration() {
-        int total=0;
-        for(int i=0; i<this.size; i++){
-            total = total + this.tracks[i].getDuration();
+        int total = 0;
+        for (int i = 0; i < this.size; i++) {
+            if (this.tracks[i] != null) {
+                total += this.tracks[i].getDuration();
+            }
         }
         return total;
     }
+    
 
     /** Returns the index of the track with the given title in this list.
      *  If such a track is not found, returns -1. */
